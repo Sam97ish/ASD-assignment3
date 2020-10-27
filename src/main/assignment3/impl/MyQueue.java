@@ -3,8 +3,8 @@ package main.assignment3.impl;
 import java.util.NoSuchElementException;
 
 public class MyQueue<AnyType>{
-    Node<AnyType> front,rear;
-    int listSize;
+    private Node<AnyType> front,rear;
+    private int listSize;
 
     public MyQueue()
     {
@@ -63,7 +63,7 @@ public class MyQueue<AnyType>{
     public void push(AnyType value)
     {
         Node<AnyType> ptr = new Node<AnyType>(value);
-
+        listSize++;
         if(front == null){
             front = ptr;
             rear = front;

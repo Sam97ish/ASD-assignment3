@@ -5,9 +5,9 @@ import main.assignment3.*;
 import java.util.ArrayList;
 
 public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph<AnyType>{
-    MyMap<AnyType,  Node<AnyType>> adjacencyList; //an adjacencyList implemented with myHashtable.
-    ArrayList<Node<AnyType>> allVertex;
-    int numNodes;
+    private MyMap<AnyType,  Node<AnyType>> adjacencyList; //an adjacencyList implemented with myHashtable.
+    private ArrayList<Node<AnyType>> allVertex;
+    private int numNodes;
 
 
     static class Node<AnyType>{//each node of vertex has a list to outgoing edges
@@ -26,9 +26,13 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             outgoing = list;
         }
 
+        public AnyType getVertex() {
+            return vertex;
+        }
+
         @Override
         public String toString() {
-            return this.vertex + " " + this.outgoing.toString() + " \n ";
+            return this.vertex + " " + this.outgoing.toString();
         }
 
     }
@@ -59,6 +63,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
             if (sourceNode != null) {//if sourceNode is in the graph
                 sourceNode.outgoing.add(targetNode); //add the target vertex to the sourcevertex outgoing list.
+                targetNode.outgoing.add(sourceNode); //because undirected ==> double representation.
             }
         }
     }
@@ -73,7 +78,13 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         return this.adjacencyList;
     }
 
+/*
     private int dfs(Node<AnyType> node){
+
+        for (Node<AnyType> vertex : this.allVertex) {// O(|V|)
+            vertex.visited = false;
+        }
+
         int count =0;
         MyQueue<Node<AnyType>> queue = new MyQueue<>();
 
@@ -82,7 +93,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         while(!queue.isEmpty()){ //every edge of every vertex O(|E|).
 
             Node<AnyType> vertex = queue.pop();
-
+            vertex.visited = true;
             ArrayList<Node<AnyType>> list = vertex.outgoing;
 
             for (Node<AnyType> vert : list) {
@@ -98,24 +109,81 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
         return count;
     }
+
+ */
+
+    private void dfs(Node<AnyType> node){
+
+        node.visited = true;
+        ArrayList<Node<AnyType>> ls = node.outgoing;
+        for (Node<AnyType> w : ls) {
+            if (!w.visited) {
+                dfs(w);
+            }
+        }
+    }
+
     @Override
     public boolean isConnected() {
+	// TODO Auto-generated method stub
+
+        Node<AnyType> n = allVertex.get(0);
+
+        dfs(n); //O(|E| + |V|)
+        boolean isConnected = true;
+
+        for (Node<AnyType> w : allVertex) { //O(|V|)
+            isConnected &= w.visited;
+        }
+
+	return isConnected;
+    }
+
+    private MyList<AnyType> dfsComponents(Node<AnyType> vertex) {
+
+        MyQueue<Node<AnyType>> queue = new MyQueue<>();
+        MyListImpl<AnyType> ls = new MyListImpl<>();
+
+        queue.push(vertex);
+
+        while (!queue.isEmpty()) { //every edge of every vertex O(|E|).
+
+            Node<AnyType> node = queue.pop();
+            vertex.visited = true;
+            ArrayList<Node<AnyType>> list = node.outgoing;
+            ls.push(node.getVertex());
+
+            for (Node<AnyType> vert : list) {// O(|E|) of the connected component.
+
+                if (!vert.visited) {
+                    vert.visited = true;
+                    queue.push(vert);
+                }
+            }
+
+        }
+        return ls;
+    }
+
+    @Override
+    public MyList<MyList<AnyType>> connectedComponents() {
 	// TODO Auto-generated method stub
 
         for (Node<AnyType> vertex : this.allVertex) {// O(|V|)
             vertex.visited = false;
         }
 
-        Node<AnyType> n = allVertex.get(0);
-        int count = dfs(n); //O(|E|)
+        MyListImpl<MyList<AnyType>> lsOfls = new MyListImpl<>();
 
-	return 2*count == numNodes; //because the undirected graph has a double representation in adjacency list.
-    }
+        for (Node<AnyType> vertex : allVertex) {
 
-    @Override
-    public MyList<MyList<AnyType>> connectedComponents() {
-	// TODO Auto-generated method stub
-	return null;
+            if (!vertex.visited) {
+                MyList<AnyType>  ls = dfsComponents(vertex); //O(|E| + |V|)
+                lsOfls.push(ls);
+            }
+        }
+
+	return lsOfls;
     }
 
     @Override

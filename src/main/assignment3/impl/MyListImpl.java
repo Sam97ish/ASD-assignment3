@@ -103,7 +103,7 @@ public class MyListImpl<AnyType> implements MyList<AnyType> {
     public void push(AnyType value)
     {
         Node<AnyType> ptr = new Node<AnyType>(value);
-
+        listSize++;
         if(front == null){
             front = ptr;
             rear = front;
