@@ -99,7 +99,7 @@ public class main {
          */
 
 
-
+        /*
        //testing connectedComponent
        MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
 
@@ -129,7 +129,32 @@ public class main {
                System.out.println(tmp.get(k) + ", ");
            }
        }
+       */
 
+       MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
+       undirectedGraph.addVertex(1);
+       undirectedGraph.addVertex(2);
+       undirectedGraph.addVertex(3);
+       undirectedGraph.addVertex(4);
+       undirectedGraph.addVertex(5);
+
+       undirectedGraph.addEdge(1,2);
+       undirectedGraph.addEdge(1,4);
+       undirectedGraph.addEdge(1,3);
+       undirectedGraph.addEdge(1,5);
+
+       undirectedGraph.addEdge(3,4);
+       undirectedGraph.addEdge(3,2);
+       undirectedGraph.addEdge(3,1);
+       undirectedGraph.addEdge(3,5);
+
+       undirectedGraph.addEdge(5,1);
+       undirectedGraph.addEdge(5,3);
+
+       undirectedGraph.addEdge(2,4); //the other two edges are already added for the 2 and the 4.
+
+       System.out.println(undirectedGraph.hasEulerPath());
 
     }
 }

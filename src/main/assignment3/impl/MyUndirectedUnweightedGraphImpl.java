@@ -189,7 +189,26 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     @Override
     public boolean hasEulerPath() {
 	// TODO Auto-generated method stub
-	return false;
+
+        boolean isconn = isConnected(); //O(|V| + |E|)
+
+        int numOddEdges=0;
+        boolean hasEvenEdges = true;
+        for(Node<AnyType> vert : allVertex){ //O(|V|).
+            int numEdges = vert.outgoing.size();
+            if( numEdges % 2 == 0){
+                hasEvenEdges = true;
+            }else{// odd num of edges should be either 0 or 2.
+                numOddEdges++;
+            }
+
+        }
+
+        if(hasEvenEdges){
+            hasEvenEdges = numOddEdges == 0 || numOddEdges == 2;
+        }
+
+	return hasEvenEdges & isconn;
     }
 
     @Override
