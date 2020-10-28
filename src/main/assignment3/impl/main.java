@@ -131,6 +131,7 @@ public class main {
        }
        */
 
+       //testing hasEulerPath.
        MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
 
        undirectedGraph.addVertex(1);
@@ -138,6 +139,7 @@ public class main {
        undirectedGraph.addVertex(3);
        undirectedGraph.addVertex(4);
        undirectedGraph.addVertex(5);
+       //undirectedGraph.addVertex(8);
 
        undirectedGraph.addEdge(1,2);
        undirectedGraph.addEdge(1,4);
@@ -154,7 +156,28 @@ public class main {
 
        undirectedGraph.addEdge(2,4); //the other two edges are already added for the 2 and the 4.
 
+       //undirectedGraph.addEdge(5,8);
+
        System.out.println(undirectedGraph.hasEulerPath());
+
+       //test2
+       MyUndirectedUnweightedGraphImpl<Integer> UG = new MyUndirectedUnweightedGraphImpl<>();
+
+       UG.addVertex(0);
+       UG.addVertex(1);
+       UG.addVertex(2);
+       UG.addVertex(3);
+       UG.addVertex(4);
+       //UG.addVertex(10);
+
+       UG.addEdge(3,4);
+       UG.addEdge(0,3);
+       UG.addEdge(2,0);
+       UG.addEdge(1,0);
+       UG.addEdge(1,2);
+       //UG.addEdge(1,3);
+
+       System.out.println(UG.hasEulerPath());
 
     }
 }
