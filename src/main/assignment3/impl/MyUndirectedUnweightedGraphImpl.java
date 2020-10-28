@@ -13,11 +13,13 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     static class Node<AnyType>{//each node of vertex has a list to outgoing edges
         AnyType vertex;
         ArrayList<Node<AnyType>> outgoing;
+        ArrayList<Node<AnyType>> weights;
         boolean visited;
 
         Node(AnyType ver){
             vertex = ver;
             outgoing = new ArrayList<Node<AnyType>>();
+            weights = new ArrayList<Node<AnyType>>();
             visited = false;
         }
 
@@ -186,14 +188,29 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 	return lsOfls;
     }
 
+    public boolean isConnected2() {
+        // TODO Auto-generated method stub
+
+        Node<AnyType> n = allVertex.get(0);
+
+        dfs(n); //O(|E| + |V|)
+        boolean isConnected = true;
+
+        for (Node<AnyType> w : allVertex) { //O(|V|)
+            isConnected &= w.visited || w.outgoing.size() <= 0;
+        }
+
+        return isConnected;
+    }
+
     @Override
     public boolean hasEulerPath() {
 	// TODO Auto-generated method stub
 
-        boolean isconn = isConnected(); //O(|V| + |E|)
+        boolean isconn = isConnected2(); //O(|V| + |E|)
 
         int numOddEdges=0;
-        boolean hasEvenEdges = true;
+        boolean hasEvenEdges = false;
         for(Node<AnyType> vert : allVertex){ //O(|V|).
             int numEdges = vert.outgoing.size();
             if( numEdges % 2 == 0){
@@ -214,6 +231,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
+
 	return null;
     }
 
