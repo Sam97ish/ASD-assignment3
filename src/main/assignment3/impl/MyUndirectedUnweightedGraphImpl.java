@@ -231,6 +231,11 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
+        MyList list = new MyListImpl<>();
+        if (!isConnected() || !hasEulerPath()) // Base case in order to continue the algorithm.
+            return list;
+
+
 
 	return null;
     }
