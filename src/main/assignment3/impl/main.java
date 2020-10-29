@@ -139,6 +139,40 @@ public class main {
        undirectedGraph.addVertex(3);
        undirectedGraph.addVertex(4);
        undirectedGraph.addVertex(5);
+       undirectedGraph.addVertex(6);
+       undirectedGraph.addVertex(7);
+       undirectedGraph.addVertex(8);
+       undirectedGraph.addVertex(9);
+
+       undirectedGraph.addEdge(1,9);
+       undirectedGraph.addEdge(1,6);
+       undirectedGraph.addEdge(1,8);
+       undirectedGraph.addEdge(1,2);
+
+       undirectedGraph.addEdge(2,8);
+       undirectedGraph.addEdge(2,3);
+       undirectedGraph.addEdge(2,4);
+
+       undirectedGraph.addEdge(3,4);
+
+       undirectedGraph.addEdge(5,8);
+       undirectedGraph.addEdge(5,7);
+
+       undirectedGraph.addEdge(6,9);
+
+       undirectedGraph.addEdge(7,8);
+
+       System.out.println(undirectedGraph);
+
+
+
+     /*  MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
+       undirectedGraph.addVertex(1);
+       undirectedGraph.addVertex(2);
+       undirectedGraph.addVertex(3);
+       undirectedGraph.addVertex(4);
+       undirectedGraph.addVertex(5);
        //undirectedGraph.addVertex(8);
 
        undirectedGraph.addEdge(1,2);
@@ -149,9 +183,10 @@ public class main {
        undirectedGraph.addEdge(3,4);
        undirectedGraph.addEdge(3,2);
        undirectedGraph.addEdge(2,4);
-       undirectedGraph.addEdge(3,5);
+       undirectedGraph.addEdge(3,5);*/
 
-       System.out.println(undirectedGraph);
+       //System.out.println(undirectedGraph);
+       System.out.println(undirectedGraph.eulerPath());
 
 
 
