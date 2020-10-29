@@ -34,7 +34,13 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
         @Override
         public String toString() {
-            return this.vertex + " " + this.outgoing.toString();
+            StringBuilder sb = new StringBuilder();
+            for (Node<AnyType> s : this.outgoing)
+            {
+                sb.append(s.vertex.toString());
+                sb.append(" ");
+            }
+            return this.vertex.toString() + " " + sb.toString();
         }
 
     }
@@ -228,12 +234,52 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 	return hasEvenEdges & isconn;
     }
 
+    public MyList<Node> hasEulerPath2() {
+        // TODO Auto-generated method stub
+        boolean isconn = isConnected2(); //O(|V| + |E|)
+
+        if (!isconn){
+            return null;
+        }
+        MyListImpl <Node> oddEdges = new MyListImpl<>();
+
+        int numOddEdges=0;
+        for(Node<AnyType> vert : allVertex){ //O(|V|).
+            int numEdges = vert.outgoing.size();
+            if( numEdges % 2 != 0){
+                oddEdges.push(vert);
+                numOddEdges++;
+            }
+            if (numOddEdges > 2) {
+                return null;
+            }
+
+        }
+
+        if (numOddEdges  == 0){
+            oddEdges.push(allVertex.get(0));
+        }
+
+        return oddEdges;
+    }
+
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
         MyList list = new MyListImpl<>();
-        if (!isConnected() || !hasEulerPath()) // Base case in order to continue the algorithm.
-            return list;
+        MyList <Node> oddVertices = hasEulerPath2();
+        if ( oddVertices == null || oddVertices.size() == 1) // Base case in order to continue the algorithm.
+            return list; // Returns an empty list if none of the requirements above are met.
+
+        Node start = oddVertices.get(0);
+        MyStack<Node> stack = new MyStack();
+        stack.push(start);
+
+        while (!stack.isEmpty()){
+            System.out.println(stack);
+        }
+
+
 
 
 
