@@ -95,6 +95,15 @@ public class MyListImpl<AnyType> implements MyList<AnyType> {
 
     }
 
+    public String toString() {
+        System.out.println("Ur boi is here");
+        String str = "";
+        for(int i = 0; i < size(); i++){
+            str += get(i) +", ";
+        }
+        return str;
+    }
+
     public boolean isEmpty()
     {
         return front == null;
