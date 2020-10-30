@@ -267,19 +267,6 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         return oddEdges;
     }
 
-    private void dfsEdited(Node<AnyType> node){
-
-        // node.visited = true;
-        ArrayList<Node<AnyType>> neighbours = node.outgoing;
-        for (Node<AnyType> w : neighbours) {
-            neighbours.remove(w);
-
-            /*if (!w.visited) {
-                dfs(w);
-            }*/
-        }
-    }
-
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
@@ -301,7 +288,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         do {
             ArrayList<Node<AnyType>> neighbours = current.outgoing;
             if (neighbours.size() == 0) {
-                list.push(current.vertex);
+                list.push(current);
                 current = stack.pop();
                 continue ;
             }
@@ -311,12 +298,10 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             neighbours.remove(current);
             current.outgoing.remove(tmp);
 
-        }while (!stack.isEmpty());
-        //System.out.println(oddVertices.size());
-        //oddVertices.remove(list.get(list.size()-1));
+        }while (!stack.isEmpty() && current != null );
         System.out.println(list.get(list.size()-1));
          if(list.size() < edges +1){
-            list.push(start.vertex);
+            list.push(start);
         }
 
         MyListImpl ordered = new MyListImpl<>();
@@ -326,24 +311,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             ordered.push(list.get(i));
         }
 
-       /* if(ordered.size() < edges +1){
-            ordered.push(oddVertices.get(1).vertex);
-        }*/
-
         System.out.println(edges);
-
-        /*while (!stack.isEmpty()){
-            Node current = stack.peek();
-            ArrayList<Node<AnyType>> neighbours = current.outgoing;
-            if (neighbours.size() == 0) {
-                list.push(current);
-
-            }
-        }*/
-
-
-
-
 
 	return list;
     }

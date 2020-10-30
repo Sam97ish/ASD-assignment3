@@ -20,9 +20,12 @@ public class MyStack <E> {
     }
 
     public E pop () {
-        E data = (E) top.data;
-        top = top.next;
-        return data;
+        if (top != null) {
+            E data = (E) top.data;
+            top = top.next;
+            return data;
+        } else
+            return null;
     }
 
     private static class Node <E>{
