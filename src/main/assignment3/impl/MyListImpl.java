@@ -93,8 +93,15 @@ public class MyListImpl<AnyType> implements MyList<AnyType> {
             this.info = info;
         }
 
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "info=" + info +
+                    '}';
+        }
     }
 
+    @Override
     public String toString() {
         System.out.println("Ur boi is here");
         String str = "";
