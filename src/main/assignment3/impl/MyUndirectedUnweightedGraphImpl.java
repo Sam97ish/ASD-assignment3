@@ -14,13 +14,11 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     static class Node<AnyType>{//each node of vertex has a list to outgoing edges
         AnyType vertex;
         ArrayList<Node<AnyType>> outgoing;
-        ArrayList<Node<AnyType>> weights;
         boolean visited;
 
         Node(AnyType ver){
             vertex = ver;
             outgoing = new ArrayList<Node<AnyType>>();
-            weights = new ArrayList<Node<AnyType>>();
             visited = false;
         }
 
