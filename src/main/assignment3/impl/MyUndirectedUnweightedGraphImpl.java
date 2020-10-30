@@ -39,7 +39,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
                 sb.append(s.vertex.toString());
                 sb.append(" ");
             }
-            return sb.toString();
+            return this.vertex + sb.toString();
         }
 
     }
@@ -280,7 +280,6 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
         Node start = oddVertices.get(0);
         MyStack<Node> stack = new MyStack();
-        // stack.push(start);
         Node current = start;
 
         System.out.println(start.vertex);
