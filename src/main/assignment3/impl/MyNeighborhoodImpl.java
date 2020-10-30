@@ -3,6 +3,7 @@ package main.assignment3.impl;
 import main.assignment1.MyList;
 import main.assignment3.MyMap;
 import main.assignment3.Neighborhood;
+import main.assignment3.impl.BinaryHeap2;
 
 import java.util.ArrayList;
 
@@ -13,11 +14,12 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
     private int edges;
 
 
-    static class Node<AnyType>{//each node of vertex has a list to outgoing edges
+    static class Node<AnyType> implements Comparable<Node<AnyType>> {//each node of vertex has a list to outgoing edges
         AnyType vertex;
         ArrayList<NodeEdge<AnyType>> outgoing;
         int chatterTime;
         int candyAmount;
+        int key;
         boolean visited;
 
         Node(AnyType ver, int candy, int chatter){
@@ -26,6 +28,7 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             visited = false;
             candyAmount = candy;
             chatterTime = chatter;
+            key = 0;
         }
 
         Node(AnyType ver, ArrayList<NodeEdge<AnyType>> list){
@@ -37,6 +40,14 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             return vertex;
         }
 
+        public int getKey() {
+            return key;
+        }
+
+        public void setKey(int key) {
+            this.key = key;
+        }
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -44,10 +55,18 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             {
                 sb.append(s.target.vertex.toString());
                 sb.append(" ");
+                sb.append("distance");
+                sb.append(" ");
+                sb.append(s.distance);
+                sb.append(" ");
             }
             return sb.toString();
         }
 
+        @Override
+        public int compareTo(Node<AnyType> o) {
+            return this.key - o.key;
+        }
     }
 
     static class NodeEdge<AnyType>{
@@ -102,6 +121,23 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             }
         }
 	
+    }
+
+    private void primsalgo(){
+        BinaryHeap2<Node<AnyType>> binaryheap = new BinaryHeap2<Node<AnyType>>();
+
+        Node<AnyType> start = allVertex.get(0);
+
+        binaryheap.insert(start);
+        for(int i = 1; i<allVertex.size();i++){
+            Node<AnyType> n = allVertex.get(i);
+            n.setKey(Integer.MAX_VALUE);
+            binaryheap.insert(n);
+        }
+
+
+
+
     }
 
     @Override
