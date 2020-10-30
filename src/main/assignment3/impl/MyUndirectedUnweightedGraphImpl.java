@@ -8,6 +8,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
     private MyMap<AnyType,  Node<AnyType>> adjacencyList; //an adjacencyList implemented with myHashtable.
     private ArrayList<Node<AnyType>> allVertex;
     private int numNodes;
+    private int edges;
 
 
     static class Node<AnyType>{//each node of vertex has a list to outgoing edges
@@ -40,7 +41,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
                 sb.append(s.vertex.toString());
                 sb.append(" ");
             }
-            return this.vertex.toString() + " " + sb.toString();
+            return sb.toString();
         }
 
     }
@@ -49,6 +50,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
         this.adjacencyList = new MyHashTableImpl<AnyType,  Node<AnyType>>(0.48);
         this.allVertex = new ArrayList<>();
+        edges = 0;
 
     }
 
@@ -72,6 +74,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             if (sourceNode != null) {//if sourceNode is in the graph
                 sourceNode.outgoing.add(targetNode); //add the target vertex to the sourcevertex outgoing list.
                 targetNode.outgoing.add(sourceNode); //because undirected ==> double representation.
+                edges++;
             }
         }
     }
@@ -234,20 +237,20 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 	return hasEvenEdges & isconn;
     }
 
-    public MyList<Node> hasEulerPath2() {
+    public  ArrayList<Node> hasEulerPath2() {
         // TODO Auto-generated method stub
         boolean isconn = isConnected2(); //O(|V| + |E|)
 
         if (!isconn){
             return null;
         }
-        MyListImpl <Node> oddEdges = new MyListImpl<>();
+        ArrayList<Node> oddEdges = new  ArrayList<>();
 
         int numOddEdges=0;
         for(Node<AnyType> vert : allVertex){ //O(|V|).
             int numEdges = vert.outgoing.size();
             if( numEdges % 2 != 0){
-                oddEdges.push(vert);
+                oddEdges.add(vert);
                 numOddEdges++;
             }
             if (numOddEdges > 2) {
@@ -257,33 +260,94 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         }
 
         if (numOddEdges  == 0){
-            oddEdges.push(allVertex.get(0));
+            oddEdges.add(allVertex.get(0));
+            oddEdges.add(allVertex.get(1));
         }
 
+        System.out.println(numOddEdges);
+
         return oddEdges;
+    }
+
+    private void dfsEdited(Node<AnyType> node){
+
+        // node.visited = true;
+        ArrayList<Node<AnyType>> neighbours = node.outgoing;
+        for (Node<AnyType> w : neighbours) {
+            neighbours.remove(w);
+
+            /*if (!w.visited) {
+                dfs(w);
+            }*/
+        }
     }
 
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
-        MyList list = new MyListImpl<>();
-        MyList <Node> oddVertices = hasEulerPath2();
-        if ( oddVertices == null || oddVertices.size() == 1) // Base case in order to continue the algorithm.
-            return list; // Returns an empty list if none of the requirements above are met.
-
-        Node start = oddVertices.get(0);
-        MyStack<Node> stack = new MyStack();
-        stack.push(start);
-
-        while (!stack.isEmpty()){
-            System.out.println(stack);
+        MyListImpl list = new MyListImpl<>();
+        ArrayList <Node> oddVertices = hasEulerPath2();
+        if ( oddVertices == null || oddVertices.size() == 1) {  // Base case in order to continue the algorithm.
+            System.out.println(oddVertices);
+            return list; // Returns an empty list one of the above requirements above are met.
         }
 
 
+        Node start = oddVertices.get(0);
+        MyStack<Node> stack = new MyStack();
+        // stack.push(start);
+        Node current = start;
+
+        System.out.println(start.vertex);
+
+        do {
+            ArrayList<Node<AnyType>> neighbours = current.outgoing;
+            if (neighbours.size() == 0) {
+                list.push(current.vertex);
+                current = stack.pop();
+                continue ;
+            }
+            stack.push(current);
+            Node tmp = current;
+            current = neighbours.get(0);
+            neighbours.remove(current);
+            current.outgoing.remove(tmp);
+
+        }while (!stack.isEmpty());
+        //System.out.println(oddVertices.size());
+        //oddVertices.remove(list.get(list.size()-1));
+        System.out.println(list.get(list.size()-1));
+         if(list.size() < edges +1){
+            list.push(start.vertex);
+        }
+
+        MyListImpl ordered = new MyListImpl<>();
+
+
+        for (int i = 0; i < list.size(); i++ ){
+            ordered.push(list.get(i));
+        }
+
+       /* if(ordered.size() < edges +1){
+            ordered.push(oddVertices.get(1).vertex);
+        }*/
+
+        System.out.println(edges);
+
+        /*while (!stack.isEmpty()){
+            Node current = stack.peek();
+            ArrayList<Node<AnyType>> neighbours = current.outgoing;
+            if (neighbours.size() == 0) {
+                list.push(current);
+
+            }
+        }*/
 
 
 
-	return null;
+
+
+	return list;
     }
 
 }
