@@ -131,7 +131,7 @@ public class main {
        }
        */
 
-
+/*
        MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
 
        undirectedGraph.addVertex(1);
@@ -165,6 +165,8 @@ public class main {
        System.out.println(undirectedGraph);
 
 
+ */
+
 
      /*  MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
 
@@ -186,7 +188,7 @@ public class main {
        undirectedGraph.addEdge(3,5);*/
 
        //System.out.println(undirectedGraph);
-       System.out.println(undirectedGraph.eulerPath());
+       //System.out.println(undirectedGraph.eulerPath());
 
 
 
@@ -237,11 +239,66 @@ public class main {
        //UG.addEdge(1,3);
 
        System.out.println(UG.hasEulerPath());*/
-
+/*
        MyNeighborhoodImpl<Integer> neighborhood = new MyNeighborhoodImpl<>();
 
        neighborhood.addVertex(1,0,0);
-       neighborhood.addVertex(1,0,0);
-       neighborhood.addVertex(1,0,0);
+       neighborhood.addVertex(2,0,0);
+       neighborhood.addVertex(3,0,0);
+       neighborhood.addVertex(4,0,0);
+       neighborhood.addVertex(5,0,0);
+       neighborhood.addVertex(6,0,0);
+       neighborhood.addVertex(7,0,0);
+       neighborhood.addVertex(8,0,0);
+       neighborhood.addVertex(9,0,0);
+
+       neighborhood.addEdge(1,2,4);
+       neighborhood.addEdge(1,8,8);
+       neighborhood.addEdge(2,8,11);
+       neighborhood.addEdge(2,3,8);
+       neighborhood.addEdge(8,9,7);
+       neighborhood.addEdge(8,7,1);
+       neighborhood.addEdge(3,9,2);
+       neighborhood.addEdge(7,9,6);
+       neighborhood.addEdge(3, 4,7);
+       neighborhood.addEdge(3,6,4);
+       neighborhood.addEdge(7,6,2);
+       neighborhood.addEdge(6,4,14);
+       neighborhood.addEdge(4,5,9);
+       neighborhood.addEdge(6,5,10);
+
+       int num = neighborhood.approximateMinimumDistance();
+
+       System.out.println("the min distance should be between [37, 74[ : " + num);
+ */
+
+       MyNeighborhoodImpl<String> neighborhood = new MyNeighborhoodImpl();
+
+       neighborhood.addVertex("A", 0 ,0);
+       neighborhood.addVertex("B", 0 ,0);
+       neighborhood.addVertex("C", 0 ,0);
+       neighborhood.addVertex("D", 0 ,0);
+       neighborhood.addVertex("E", 0 ,0);
+       neighborhood.addVertex("F", 0 ,0);
+       neighborhood.addVertex("G", 0 ,0);
+       neighborhood.addVertex("H", 0 ,0);
+
+       neighborhood.addEdge("A","B", 4);
+       neighborhood.addEdge("A","D", 16);
+       neighborhood.addEdge("A","G", 9);
+       neighborhood.addEdge("B","C", 20);
+       neighborhood.addEdge("B","G", 8);
+       neighborhood.addEdge("C","E", 4);
+       neighborhood.addEdge("E","D", 5);
+       neighborhood.addEdge("E","H", 3);
+       neighborhood.addEdge("D","F", 14);
+       neighborhood.addEdge("D","H", 6);
+       neighborhood.addEdge("G","H", 13);
+       neighborhood.addEdge("G","F", 6);
+       neighborhood.addEdge("G","E", 12);
+
+       int num = neighborhood.approximateMinimumDistance();
+
+       System.out.println("the min distance should be between [42, 84[ : " + num);
     }
 }

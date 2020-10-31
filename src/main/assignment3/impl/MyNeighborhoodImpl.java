@@ -184,7 +184,9 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             sum += vert.getKey();
         }
 
-	    return 2*sum-1;
+        sum *=2;
+
+	    return sum-2;
     }
 
     @Override
