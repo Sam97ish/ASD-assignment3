@@ -310,9 +310,9 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             ordered.push(list.get(i));
         }
 
-        System.out.println(edges);
+        // System.out.println(ordered);
 
-	return list;
+	return ordered;
     }
 
 }
