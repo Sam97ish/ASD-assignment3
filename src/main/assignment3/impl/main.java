@@ -275,7 +275,7 @@ public class main {
 
        System.out.println("the min distance should be between [37, 74[ : " + num);
  */
-
+    /*
        MyNeighborhoodImpl<String> neighborhood = new MyNeighborhoodImpl();
 
        neighborhood.addVertex("A", 0 ,0);
@@ -304,5 +304,28 @@ public class main {
        int num = neighborhood.approximateMinimumDistance();
 
        System.out.println("the min distance should be between [42, 84[ : " + num);
+       */
+
+    //testing last method.
+       MyNeighborhoodImpl<Integer> neighborhood2 = new MyNeighborhoodImpl<>();
+
+       neighborhood2.addVertex(1,9,38);
+       neighborhood2.addVertex(2,6,40);
+       neighborhood2.addVertex(3,5,24);
+
+
+       System.out.println(neighborhood2.neighborsToVisit(15));
+
+
+       MyNeighborhoodImpl<Integer> neighborhood = new MyNeighborhoodImpl<>();
+
+       neighborhood.addVertex(1,5,60);
+       neighborhood.addVertex(2,3,50);
+       neighborhood.addVertex(3,4,70);
+       neighborhood.addVertex(4,2,30);
+
+
+       System.out.println(neighborhood.neighborsToVisit(5));
+
     }
 }
