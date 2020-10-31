@@ -131,8 +131,11 @@ public class main {
        }
        */
 
-/*
-       MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
+
+       /*MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
+
 
        undirectedGraph.addVertex(1);
        undirectedGraph.addVertex(2);
@@ -162,13 +165,12 @@ public class main {
 
        undirectedGraph.addEdge(7,8);
 
-       System.out.println(undirectedGraph);
+       System.out.println(undirectedGraph);*/
 
 
- */
 
 
-     /*  MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+       MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
 
        undirectedGraph.addVertex(1);
        undirectedGraph.addVertex(2);
@@ -185,10 +187,12 @@ public class main {
        undirectedGraph.addEdge(3,4);
        undirectedGraph.addEdge(3,2);
        undirectedGraph.addEdge(2,4);
-       undirectedGraph.addEdge(3,5);*/
+       undirectedGraph.addEdge(3,5);
 
-       //System.out.println(undirectedGraph);
-       //System.out.println(undirectedGraph.eulerPath());
+
+       System.out.println(undirectedGraph);
+       System.out.println(undirectedGraph.hasEulerPath());
+       System.out.println(undirectedGraph.eulerPath());
 
 
 

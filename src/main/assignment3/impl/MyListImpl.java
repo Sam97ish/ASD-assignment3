@@ -103,7 +103,10 @@ public class MyListImpl<AnyType> implements MyList<AnyType> {
 
     @Override
     public String toString() {
+
+=======
         //System.out.println("Ur boi is here");
+
         String str = "";
         for(int i = 0; i < size(); i++){
             str += get(i).toString() +", ";
