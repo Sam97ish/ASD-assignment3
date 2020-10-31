@@ -6,6 +6,7 @@ import main.assignment3.Neighborhood;
 import main.assignment3.impl.BinaryHeap2;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
     private MyMap<AnyType, Node<AnyType>> adjacencyList; //an adjacencyList implemented with myHashtable.
@@ -67,6 +68,22 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
         public int compareTo(Node<AnyType> o) {
             return this.key - o.key;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node<?> node = (Node<?>) o;
+            return chatterTime == node.chatterTime &&
+                    candyAmount == node.candyAmount &&
+                    getKey() == node.getKey() &&
+                    getVertex().equals(node.getVertex());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getVertex(), outgoing, chatterTime, candyAmount, getKey(), visited);
+        }
     }
 
     static class NodeEdge<AnyType>{
@@ -123,27 +140,51 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
 	
     }
 
-    private void primsalgo(){
+    private ArrayList<Node<AnyType>> primsalgo(){
         BinaryHeap2<Node<AnyType>> binaryheap = new BinaryHeap2<Node<AnyType>>();
-
         Node<AnyType> start = allVertex.get(0);
-
         binaryheap.insert(start);
+
         for(int i = 1; i<allVertex.size();i++){
             Node<AnyType> n = allVertex.get(i);
             n.setKey(Integer.MAX_VALUE);
+            n.visited = false;
             binaryheap.insert(n);
         }
 
+        ArrayList<Node<AnyType>> MST = new ArrayList<>();
 
+        while (!binaryheap.isEmpty()){
+            Node<AnyType> minNode = binaryheap.deleteMin();
+            minNode.visited = true;
+            MST.add(minNode);
 
+            ArrayList<NodeEdge<AnyType>> outgoing = minNode.outgoing;
+
+            for (NodeEdge<AnyType> edge : outgoing) {
+                if (!edge.target.visited) { //if node not yet in MST
+                    if (edge.target.getKey() > edge.getDistance()) {
+                        edge.target.setKey(edge.getDistance());
+                        binaryheap.decresekey(edge.target);
+                    }
+                }
+            }
+        }
+
+        return MST;
 
     }
 
     @Override
     public int approximateMinimumDistance() {
 	// TODO Auto-generated method stub
-	return 0;
+        ArrayList<Node<AnyType>> MST = primsalgo();
+        int sum = 0;
+        for(Node<AnyType> vert : MST){
+            sum += vert.getKey();
+        }
+
+	    return 2*sum-1;
     }
 
     @Override

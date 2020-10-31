@@ -31,6 +31,27 @@ public class BinaryHeap2<T extends Comparable<T>> implements BinaryHeap<T> {
         }
     }
 
+    private void percolateUp2(int indx){
+        int index = indx;
+        while(index >1 && check(this.ls.get(index/2),this.ls.get(index))){
+
+            swapRef(index/2,index);
+
+            index = index/2;
+
+        }
+    }
+
+    private int search(T elm){
+
+        return ls.indexOf(elm);
+    }
+
+    public void decresekey(T elm){
+        int index = search(elm);
+        percolateUp2(index);
+    }
+
     @Override
     public T deleteMin() {
         if(!isEmpty()) {
