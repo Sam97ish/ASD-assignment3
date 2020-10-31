@@ -52,6 +52,10 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
     }
 
+    /**
+     * Adds the vertex to the list of all vertexes
+     * @param vertex - the data that is to be taken by the vertex
+     */
     @Override
     public void addVertex(AnyType vertex) {
 	// TODO Auto-generated method stub
@@ -61,6 +65,11 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         allVertex.add(vertNode);
     }
 
+    /**
+     * Adds an edge between two vertices and does the reverse
+     * @param sourceVertex - The source vertex that is to be added
+     * @param targetVertex - The target vertex thst is to be added
+     */
     @Override
     public void addEdge(AnyType sourceVertex, AnyType targetVertex) {
 	// TODO Auto-generated method stub
@@ -121,6 +130,10 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
  */
 
+    /**
+     * Performs a depth first search
+     * @param node - The node to begin with in the search
+     */
     private void dfs(Node<AnyType> node){
 
         node.visited = true;
@@ -132,11 +145,20 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         }
     }
 
+    /**
+     * Returns if the graph is connected or not.
+     * @return
+     */
     @Override
     public boolean isConnected() {
 	// TODO Auto-generated method stub
 
+        for (Node<AnyType> w : allVertex) { //O(|V|)
+            w.visited = false;
+        }
+
         Node<AnyType> n = allVertex.get(0);
+
 
         dfs(n); //O(|E| + |V|)
         boolean isConnected = true;
@@ -174,6 +196,10 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         return ls;
     }
 
+    /**
+     * Returns a list that contains the different connected components in the graph.
+     * @return
+     */
     @Override
     public MyList<MyList<AnyType>> connectedComponents() {
 	// TODO Auto-generated method stub
@@ -210,6 +236,10 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         return isConnected;
     }
 
+    /**
+     * Checks if the graph meets the criteria for an euler path
+     * @return
+     */
     @Override
     public boolean hasEulerPath() {
 	// TODO Auto-generated method stub
@@ -262,18 +292,21 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             oddEdges.add(allVertex.get(1));
         }
 
-        System.out.println(numOddEdges);
+        // System.out.println(numOddEdges);
 
         return oddEdges;
     }
 
+    /**
+     *
+     * @return returns the Euler path if a graph has one, if not then it returns an empty array
+     */
     @Override
     public MyList<AnyType> eulerPath() {
 	// TODO Auto-generated method stub
         MyListImpl list = new MyListImpl<>();
         ArrayList <Node> oddVertices = hasEulerPath2();
         if ( oddVertices == null || oddVertices.size() == 1) {  // Base case in order to continue the algorithm.
-            System.out.println(oddVertices);
             return list; // Returns an empty list one of the above requirements above are met.
         }
 
@@ -282,7 +315,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         MyStack<Node> stack = new MyStack();
         Node current = start;
 
-        System.out.println(start.vertex);
+        // System.out.println(start.vertex);
 
         do {
             ArrayList<Node<AnyType>> neighbours = current.outgoing;
