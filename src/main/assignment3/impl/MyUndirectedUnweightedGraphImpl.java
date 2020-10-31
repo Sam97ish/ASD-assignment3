@@ -292,8 +292,6 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             oddEdges.add(allVertex.get(1));
         }
 
-        // System.out.println(numOddEdges);
-
         return oddEdges;
     }
 
@@ -315,7 +313,6 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         MyStack<Node> stack = new MyStack();
         Node current = start;
 
-        // System.out.println(start.vertex);
 
         do {
             ArrayList<Node<AnyType>> neighbours = current.outgoing;
@@ -331,7 +328,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             current.outgoing.remove(tmp);
 
         }while (!stack.isEmpty() && current != null );
-        System.out.println(list.get(list.size()-1));
+
          if(list.size() < edges +1){
             list.push(start);
         }
@@ -343,7 +340,6 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
             ordered.push(list.get(i));
         }
 
-        // System.out.println(ordered);
 
 	return ordered;
     }

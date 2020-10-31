@@ -184,13 +184,76 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             sum += vert.getKey();
         }
 
-	    return 2*sum-1;
+        sum *=2;
+
+	    return sum-2;
     }
 
     @Override
     public MyList<AnyType> neighborsToVisit(int maximum_Time) {
 	// TODO Auto-generated method stub
-	return null;
+        int[] candy = new int[allVertex.size()];
+        int[] chatter = new int[allVertex.size()];
+
+        for(int i =0; i<allVertex.size();i++){
+            candy[i] = allVertex.get(i).candyAmount;
+        }
+
+        for(int i =0; i<allVertex.size();i++){
+            chatter[i] = allVertex.get(i).chatterTime;
+        }
+
+        int[][] table = new int[allVertex.size()+1][maximum_Time+1];
+
+        for(int i = 0; i<=maximum_Time; i++){
+            table[0][i] = 0;
+        }
+
+        for(int i = 0; i<=allVertex.size(); i++){
+            table[i][0] = 0;
+        }
+
+        for(int j = 1; j<= allVertex.size(); j++){
+            for(int w=1; w<=maximum_Time; w++){
+                if(w < chatter[j-1]){
+                    table[j][w] = table[j-1][w];
+                }else{
+                    table[j][w] = Math.max( table[j-1][w], table[j-1][w-chatter[j-1]]+candy[j-1]);
+                }
+            }
+        }
+
+        MyListImpl<AnyType> listOfVisited = new MyListImpl<AnyType>();
+
+        System.out.println(table[allVertex.size()][maximum_Time]);
+
+        int i = allVertex.size();
+        int w = maximum_Time;
+        while(i>= 1){
+            while(w>=1 && i>= 1){
+                if(w < chatter[i-1]){
+                    i-=1;
+                }else if(table[i][w] == table[i][w-1] && table[i][w] == table[i-1][w-chatter[i-1]]+candy[i-1]){
+                    //skip
+                    w-=1;
+
+                    }else if(table[i][w] != table[i][w-1] && table[i][w] == table[i-1][w-chatter[i-1]]+candy[i-1]){
+                        //chosen
+                        listOfVisited.push(allVertex.get(i-1).getVertex());
+                        i-=1;
+                        if(i>= 1){
+                            w-=chatter[i-1];
+                        }else{
+                            w-=1;
+                        }
+
+                    }
+            }
+
+        }
+
+
+	return listOfVisited;
     }
 
   
