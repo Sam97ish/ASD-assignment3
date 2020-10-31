@@ -238,5 +238,10 @@ public class main {
 
        System.out.println(UG.hasEulerPath());*/
 
+       MyNeighborhoodImpl<Integer> neighborhood = new MyNeighborhoodImpl<>();
+
+       neighborhood.addVertex(1,0,0);
+       neighborhood.addVertex(1,0,0);
+       neighborhood.addVertex(1,0,0);
     }
 }
