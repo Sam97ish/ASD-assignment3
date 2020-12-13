@@ -225,7 +225,7 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
 
         MyListImpl<AnyType> listOfVisited = new MyListImpl<AnyType>();
 
-        System.out.println(table[allVertex.size()][maximum_Time]);
+        //System.out.println(table[allVertex.size()][maximum_Time]);
 
         int i = allVertex.size();
         int w = maximum_Time;
@@ -233,22 +233,28 @@ public class MyNeighborhoodImpl<AnyType> implements Neighborhood<AnyType> {
             while(w>=1 && i>= 1){
                 if(w < chatter[i-1]){
                     i-=1;
-                }else if(table[i][w] == table[i][w-1] && table[i][w] == table[i-1][w-chatter[i-1]]+candy[i-1]){
+                    if(i==0){
+                        listOfVisited.push(allVertex.get(i).getVertex());
+                    }
+                }else if(table[i][w] == table[i-1][w] && table[i][w] == table[i-1][w-chatter[Math.abs(i-1)]]+candy[i-1]){
                     //skip
-                    w-=1;
+                    i-=1;
 
-                    }else if(table[i][w] != table[i][w-1] && table[i][w] == table[i-1][w-chatter[i-1]]+candy[i-1]){
+                    }else if(table[i][w] != table[i-1][w] && table[i][w] == table[i-1][w-chatter[i-1]]+candy[i-1]){
                         //chosen
                         listOfVisited.push(allVertex.get(i-1).getVertex());
-                        i-=1;
+
                         if(i>= 1){
                             w-=chatter[i-1];
                         }else{
                             w-=1;
                         }
-
-                    }
+                        i-=1;
+                    }else{
+                    i-=1;
+                }
             }
+            i-=1;
 
         }
 
