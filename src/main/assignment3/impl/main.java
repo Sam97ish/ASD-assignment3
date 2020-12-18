@@ -170,7 +170,10 @@ public class main {
 
 
 
+
        MyUndirectedUnweightedGraphImpl <String> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
+
 
        undirectedGraph.addVertex("1");
        undirectedGraph.addVertex("2");
@@ -197,10 +200,11 @@ public class main {
        System.out.println(lol);
 
 
-
+*/
 
        /*//testing hasEulerPath.
        MyUndirectedUnweightedGraphImpl<Integer> undirectedGraph = new MyUndirectedUnweightedGraphImpl<>();
+
 
        undirectedGraph.addVertex(1);
        undirectedGraph.addVertex(2);
