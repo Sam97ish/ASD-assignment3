@@ -317,7 +317,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
         do {
             ArrayList<Node<AnyType>> neighbours = current.outgoing;
             if (neighbours.size() == 0) {
-                String str = current.toString();
+                AnyType str = (AnyType) current.toString();
                 list.push(str);
                 current = stack.pop();
                 continue ;
@@ -338,7 +338,7 @@ public class MyUndirectedUnweightedGraphImpl<AnyType> implements UnweightedGraph
 
 
         for (int i = 0; i < list.size(); i++ ){
-            String str = list.get(i).toString();
+            AnyType str = (AnyType) list.get(i).toString();
             ordered.push(str);
         }
 
